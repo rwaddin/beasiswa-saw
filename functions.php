@@ -257,6 +257,28 @@ function get_periode_option($selected = "", $only_active = false)
     }
     return $a;
 }
+
+function get_periode_check($selected = "", $only_active = false)
+{
+    global $PERIODE;
+    $a = '';
+    foreach ($PERIODE as $key => $val) {
+        if ($only_active && $val->status_periode != 'Aktif')
+            continue;
+        if ($key == $selected)
+        $a .= '<div class="form-check form-check-inline">
+                <input name="periode[]" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="'.$key.'" checked>
+                <label class="form-check-label" for="inlineCheckbox1">'.$val->nama_periode.'</label>
+            </div>';
+        else
+            $a .= '<div class="form-check form-check-inline">
+                <input name="periode[]" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="'.$key.'">
+                <label class="form-check-label" for="inlineCheckbox1">'.$val->nama_periode.'</label>
+            </div>';
+    }
+    return $a;
+}
+
 function get_siswa_option($selected = "")
 {
     global $SISWA;

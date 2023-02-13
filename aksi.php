@@ -291,3 +291,16 @@ elseif ($mod == 'periode_tambah') {
     $db->query("DELETE FROM tb_periode WHERE kode_periode='$_GET[ID]'");
     header("location:index.php?m=periode");
 }
+elseif ($mod == "laporan"){
+    $periode = $_POST['periode'];
+    $chart["nama"] = [];
+    $chart["data"] = [];
+    
+    foreach ($periode as $kode) {
+        $p = $db->get_row("Select * from tb_periode where kode_periode='{$kode}'");
+        $p2 = $db->get_results("SELECT * from tb_rel_siswa where kode_periode='{$kode}' group by kode_siswa");
+        
+        $chart["nama"][] = $p->nama_periode;
+        $chart["total"][] = count($p2);
+    }
+}
