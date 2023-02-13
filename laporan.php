@@ -8,7 +8,7 @@ $kode_periode = _get('kode_periode');
 <div class="card mb-3">
     <div class="card-header">
         <form class="" method="post">
-            <?= get_periode_check($kode_periode) ?>
+            <?= get_periode_check() ?>
             <button class="btn btn-primary" type="submit"><i class="fa fa-chart-line"></i> Lihat</button>
         </form>
     </div>
