@@ -52,11 +52,21 @@ if ($mod == 'login') {
 
     if ($kode_siswa == '' || $kode_periode == '' || isset($error))
         print_msg("Field bertanda * tidak boleh kosong!");
-    elseif ($db->get_row("SELECT * FROM tb_rel_siswa WHERE kode_siswa='$kode_siswa' AND kode_periode='$kode_periode'"))
+    elseif(count($_FILES["file"]["name"]) < count($kode_crisp)) {
+        print_msg("Semua file harus diisi!");
+    }elseif ($db->get_row("SELECT * FROM tb_rel_siswa WHERE kode_siswa='$kode_siswa' AND kode_periode='$kode_periode'")){
         print_msg("Anda sudah mendaftar di periode ini!");
-    else {
+    }else {
         foreach ($kode_crisp as $key => $val) {
-            $db->query("INSERT INTO tb_rel_siswa (kode_siswa, kode_periode, kode_kriteria, kode_crisp, status_rel_siswa) VALUES ('$kode_siswa', '$kode_periode', '$key', '$val', 'Pending')");
+    
+            $tmp_name = $_FILES["file"]["tmp_name"][$key];
+            $file_name = $_FILES["file"]["name"][$key];
+            $file_name = $kode_siswa."-".$key."-".$file_name;
+            if (move_uploaded_file($tmp_name, "files/$file_name")){
+                $db->query("INSERT INTO tb_rel_siswa (kode_siswa, kode_periode, kode_kriteria, kode_crisp, status_rel_siswa, file) VALUES ('$kode_siswa', '$kode_periode', '$key', '$val', 'Pending', '$file_name')");
+            }else{
+                set_msg('Gagal upload file');
+            }
         }
         set_msg('Pendaftaran berhasil! Data akan diproses oleh petugas.');
         redirect_js("login.php");

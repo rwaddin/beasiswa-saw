@@ -89,6 +89,17 @@ function get_rel_siswa($kode_periode)
     return $arr;
 }
 
+function get_rel_siswa_file($kode_periode)
+{
+    global $db;
+    $rows = $db->get_results("SELECT * FROM tb_rel_siswa WHERE kode_periode='$kode_periode' ORDER BY kode_siswa, kode_kriteria");
+    $arr = array();
+    foreach ($rows as $row) {
+        $arr[$row->kode_siswa][$row->kode_kriteria] = ["a"=>$row->kode_crisp,"b"=>$row->file];
+    }
+    return $arr;
+}
+
 function get_rel_status($kode_periode)
 {
     global $db;

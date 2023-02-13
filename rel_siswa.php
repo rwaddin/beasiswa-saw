@@ -1,3 +1,8 @@
+<style>
+    tr{
+        vertical-align: middle !important;
+    }
+</style>
 <div class="page-header">
     <h1>Data Pendaftaran</h1>
 </div>
@@ -41,7 +46,7 @@ $kode_periode = _get('kode_periode');
                     </tr>
                 </thead>
                 <?php
-                $rel_siswa = get_rel_siswa(_get('kode_periode'));
+                $rel_siswa = get_rel_siswa_file(_get('kode_periode'));
                 $rel_status = get_rel_status(_get('kode_periode'));
                 $no = 1;
                 foreach ($rel_siswa as $key => $val) : ?>
@@ -51,7 +56,11 @@ $kode_periode = _get('kode_periode');
                         <td><?= $SISWA[$key]->nama_siswa ?></td>
                         <td><?= $SISWA[$key]->nama_kelas ?></td>
                         <?php foreach ($val as $k => $v) : ?>
-                            <td><?= isset($CRISP[$v]) ? $CRISP[$v]->nama_crisp : '' ?></td>
+                            <td class="text-center">
+                                <a target="_blank" href="files/<?= $v["b"]; ?>"><img class="img-fluid" style="height: 5em" src="files/<?= $v["b"]; ?>"></a>
+                                <br>
+                                <?= isset($CRISP[$v["a"]]) ? $CRISP[$v["a"]]->nama_crisp : '' ?>
+                            </td>
                         <?php endforeach ?>
                         <td>
                             <?= $rel_status[$key] ?>

@@ -2,7 +2,7 @@
 $kode_siswa = set_value('kode_siswa');
 $row = $db->get_row("SELECT * FROM tb_siswa WHERE kode_siswa='$kode_siswa'");
 ?>
-<form method="POST" action="?m=daftar_nilai&kode_siswa=<?= $kode_siswa ?>">
+<form method="POST" action="?m=daftar_nilai&kode_siswa=<?= $kode_siswa ?>" enctype="multipart/form-data">
     <div class="card ">
         <div class="card-header">
             <strong>Silakan Daftar</strong>
@@ -32,10 +32,18 @@ $row = $db->get_row("SELECT * FROM tb_siswa WHERE kode_siswa='$kode_siswa'");
             <?php foreach ($KRITERIA as $key => $val) : ?>
                 <div class="mb-1">
                     <label><?= $val->nama_kriteria ?> <span class="text-danger">*</span></label>
-                    <select class="form-select" name="kode_crisp[<?= $key ?>]">
-                        <option value="">&nbsp;</option>
-                        <?= get_crisp_option($key, isset($_POST['kode_crisp'][$key]) ? $_POST['kode_crisp'][$key] : '') ?>
-                    </select>
+                    
+                    <div class="d-flex justify-content-between">
+                        <select class="form-select" name="kode_crisp[<?= $key ?>]">
+                            <option value="">&nbsp;</option>
+                            <?= get_crisp_option($key, isset($_POST['kode_crisp'][$key]) ? $_POST['kode_crisp'][$key] : '') ?>
+                        </select>
+                        <div class="w-50 ps-2 position-relative">
+                            <button class="btn btn-secondary w-100">Tambah File</button>
+                            <input type="file" name="file[<?= $key ?>]" class="position-absolute w-100 h-100 start-0" style="opacity: 0;">
+                        </div>
+                    </div>
+                    
                 </div>
             <?php endforeach ?>
         </div>
