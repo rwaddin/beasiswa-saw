@@ -14,7 +14,11 @@ if (empty($_SESSION['login']))
     <title>Beasiswa SAW</title>
     <link href="assets/css/styles.css" rel="stylesheet" />
     <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
-    <script src="assets/js/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -115,6 +119,10 @@ if (empty($_SESSION['login']))
                         <a class="nav-link" href="?m=rank">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Rank
+                        </a>
+                        <a class="nav-link" href="?m=laporan">
+                            <div class="sb-nav-link-icon"><i class="fas fa-print"></i></div>
+                            Laporan
                         </a>
                     </div>
                 </div>

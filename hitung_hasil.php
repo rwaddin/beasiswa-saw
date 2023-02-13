@@ -1,4 +1,5 @@
 <?php
+$db->query("DELETE FROM tb_hasil where kode_periode='$kode_periode'");
 $rel_siswa = get_rel_siswa($kode_periode);
 $rel_status = get_rel_status($kode_periode);
 foreach ($rel_status as $key => $val) {
@@ -175,6 +176,7 @@ $saw = new SAW($rel_nilai, $atribut, $bobot);
         </table>
     </div>
 </div>
+
 <div class="card mb-3">
     <div class="card-header">
         <strong>Perangkingan</strong>
@@ -191,13 +193,16 @@ $saw = new SAW($rel_nilai, $atribut, $bobot);
                 </tr>
             </thead>
             <?php foreach ($saw->rank as $key => $val) :
-                $db->query("UPDATE tb_rel_siswa SET total='{$saw->total[$key]}', rank='$val' WHERE kode_siswa='$key' AND kode_periode='$kode_periode'"); ?>
+                $total = round($saw->total[$key], 4);
+                $db->query("UPDATE tb_rel_siswa SET total='{$saw->total[$key]}', rank='$val' WHERE kode_siswa='$key' AND kode_periode='$kode_periode'");
+                $db->query("INSERT INTO tb_hasil (`kode_siswa`, `kode_periode`, `total`, `rank`) values ($key,'$kode_periode',$total,$val)")
+            ?>
                 <tr>
                     <td><?= $val ?></td>
                     <td><?= $key ?></td>
                     <td><?= $SISWA[$key]->nama_siswa ?></td>
                     <td><?= $SISWA[$key]->nama_kelas ?></td>
-                    <td><?= round($saw->total[$key], 4) ?></td>
+                    <td><?= $total ?></td>
                 </tr>
             <?php endforeach ?>
         </table>

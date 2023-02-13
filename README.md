@@ -1,10 +1,10 @@
-# beasiswa-saw
-
-
 # Revision
 - [x] tambah insert image di page pendaftaran siswa
 - [x] tampilkan gambar di data pendaftaran
-- [ ] ranking tambah persen
+- [x] ranking tambah filter persen
+  - trigger drop tb_hasil where kode_periode = yg sedang dihitung
+  - insert semua data ke tb_hasil
+  - update rank user
 - [ ] menu baru laporan grafik antar tahun periode
 
 # changelog

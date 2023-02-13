@@ -12,7 +12,9 @@ foreach ($KRITERIA as $key => $val) {
 $rel_nilai = get_rel_nilai($rel_siswa);
 
 $saw = new SAW($rel_nilai, $atribut, $bobot);
-$limit = ceil(5 / 100 * count($rel_nilai));
+$persen = isset($_GET["persen"]) && is_numeric($_GET["persen"]) ? $_GET["persen"] : 5;
+$limit = ceil($persen / 100 * count($rel_nilai));
+
 ?>
 
 <div class="table-responsive">
@@ -43,12 +45,12 @@ $limit = ceil(5 / 100 * count($rel_nilai));
     </table>
 </div>
 <div class="card-body">
-    <a class="btn btn-secondary" target="_blank" href="cetak.php?m=rank&kode_periode=<?= $kode_periode ?>"><span class="fa fa-print"></span> Cetak</a>
+    <a class="btn btn-secondary" target="_blank" href="cetak.php?m=rank&kode_periode=<?= $kode_periode ?>&persen=<?= isset($_GET["persen"]) ? $_GET["persen"]: 5; ?>"><span class="fa fa-print"></span> Cetak</a>
 </div>
   <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Keterangan : hasil dari calon penerima beasiswa adalah 5% dari total jumlah siswa pada periode tersebut.</div>
+                        <div class="text-muted">Keterangan : hasil dari calon penerima beasiswa adalah <?= isset($_GET["persen"]) ? $_GET["persen"]: 5; ?>% dari total jumlah siswa pada periode tersebut.</div>
                     </div>
                 </div>
             </footer>

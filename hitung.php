@@ -15,7 +15,7 @@ $kode_periode = _get('kode_periode');
                 </select>
             </div>
             <div class="col-auto">
-                <button class="btn btn-primary"><span class="fa fa-signal"></span> Hitung</a>
+                <button class="btn btn-primary"><span class="fa fa-signal"></span> Hitung</button>
             </div>
         </form>
     </div>
